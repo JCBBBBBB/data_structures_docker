@@ -3,7 +3,7 @@
 /* CE1007/CZ1007 Data Structures
 Lab Test: Section C - Stack and Queue Questions
 Purpose: Implementing the required functions for Question 1 */
-
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
