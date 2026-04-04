@@ -86,7 +86,81 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	LinkedList* oddList = malloc(sizeof(LinkedList)); // 홀수 리스트
+	LinkedList* evenList = malloc(sizeof(LinkedList)); // 짝수 리스트
+
+	ListNode* cur = ll->head; //cur은 ll의 head를 가리킨다 
+
+	if(cur == NULL) // cur이 null이면
+	{
+		return; // 그냥 return
+	}
+
+	while(cur) //cur이 있는 동안
+	{
+		ListNode* newNode = malloc(sizeof(ListNode)); // newNode 할당
+
+		newNode->item = cur->item; // newNode의 item을 현재의 item으로 저장
+
+		if(cur->item % 2 == 0) // cur->item이 짝수이면
+		{
+			if(evenList->head == NULL) // 짝수리스트의 head가 비어 있으면
+			{
+				evenList->head = newNode; // 짝수리스트의 head는 새로운 노드로
+				cur = cur->next;           
+				continue;
+			}
+
+			ListNode* curEven = evenList->head;
+
+			while(curEven->next)
+			{
+				curEven = curEven->next;
+			}
+
+			curEven->next = newNode;
+
+		}
+
+		else
+		{
+			if(oddList->head == NULL)
+			{
+				oddList->head = newNode;
+				cur = cur->next;
+				continue;
+			}
+
+			ListNode* curOdd = oddList->head;
+
+			while(curOdd->next)
+			{
+				curOdd = curOdd->next;
+			}
+
+			curOdd->next = newNode;
+		}
+
+ 		cur = cur->next;
+		//free(newNode) 를 해줘야되나??
+	}
+
+	//헤드를 연결한다
+	ListNode* final = evenList->head;
+	
+	if(final == NULL)
+	{
+		return;
+	}
+
+	while(final->next)
+	{
+		final = final->next;
+	}
+
+	final->next = oddList->head;
+
+	//even_list에 저장
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

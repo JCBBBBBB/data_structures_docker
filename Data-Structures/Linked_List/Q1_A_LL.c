@@ -10,21 +10,21 @@ Purpose: Implementing the required functions for Question 1 */
 #include <stdlib.h>
 
 //////////////////////////////////////////////////////////////////////////////////
-
-typedef struct _listnode{
+typedef struct _listnode
+{
 	int item;
 	struct _listnode *next;
-} ListNode;			// You should not change the definition of ListNode
+} ListNode; // You should not change the definition of ListNode
 
-typedef struct _linkedlist{
+typedef struct _linkedlist
+{
 	int size;
 	ListNode *head;
-} LinkedList;			// You should not change the definition of LinkedList
-
+} LinkedList; // You should not change the definition of LinkedList
 
 ///////////////////////// function prototypes ////////////////////////////////////
 
-//You should not change the prototype of this function
+// You should not change the prototype of this function
 int insertSortedLL(LinkedList *ll, int item);
 
 void printList(LinkedList *ll);
@@ -32,7 +32,6 @@ void removeAllItems(LinkedList *ll);
 ListNode *findNode(LinkedList *ll, int index);
 int insertNode(LinkedList *ll, int index, int value);
 int removeNode(LinkedList *ll, int index);
-
 
 //////////////////////////// main() //////////////////////////////////////////////
 
@@ -42,7 +41,7 @@ int main()
 	int c, i, j;
 	c = 1;
 
-	//Initialize the linked list 1 as an empty linked list
+	// Initialize the linked list 1 as an empty linked list
 	ll.head = NULL;
 	ll.size = 0;
 
@@ -80,22 +79,51 @@ int main()
 			printf("Choice unknown;\n");
 			break;
 		}
-
-
 	}
 	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
-int insertSortedLL(LinkedList *ll, int item)
+// 정렬되어 있는 연결리스트에 새로운 값을 넣되, 정렬 상태를 유지하면서 알맞은 위치에 삽입하는 함수
+// 그냥 맨 뒤에 넣는게 아니라 작은값->큰값 순서가 유지되도록 적절한 위치를 찾아서 넣는 역할
+int insertSortedLL(LinkedList *ll, int item) // 넣는 인덱스 반환
 {
-	/* add your code here */
+	int index = 0;
+
+
+	// 아예 링크드리스트가 NULL 이면 -1 반환해버린다.
+	if (ll == NULL)
+	{
+		return -1;
+	}
+
+	//
+	ListNode* cur = ll->head;
+
+	while (cur != NULL && cur->item < item)
+	{
+		cur = cur->next;
+		index++;
+	}
+
+	if (cur != NULL && cur->item == item)
+	{
+		return -1;
+	}
+
+	//일단 노드를 삽입한다. 오류나면 -1반환
+	if (insertNode(ll, index, item) == -1)
+	{
+		return -1;
+	}
+
+	return index;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-void printList(LinkedList *ll){
+void printList(LinkedList *ll)
+{
 
 	ListNode *cur;
 	if (ll == NULL)
@@ -112,13 +140,13 @@ void printList(LinkedList *ll){
 	printf("\n");
 }
 
-
 void removeAllItems(LinkedList *ll)
 {
 	ListNode *cur = ll->head;
 	ListNode *tmp;
 
-	while (cur != NULL){
+	while (cur != NULL)
+	{
 		tmp = cur->next;
 		free(cur);
 		cur = tmp;
@@ -127,8 +155,10 @@ void removeAllItems(LinkedList *ll)
 	ll->size = 0;
 }
 
-
-ListNode *findNode(LinkedList *ll, int index){
+// ll : 찾고 싶은 연결리스트, index : 몇번째 노드를 찾을지
+// 반환값 : 찾으면 그 노드의 주소,
+ListNode *findNode(LinkedList *ll, int index)
+{
 
 	ListNode *temp;
 
@@ -140,7 +170,8 @@ ListNode *findNode(LinkedList *ll, int index){
 	if (temp == NULL || index < 0)
 		return NULL;
 
-	while (index > 0){
+	while (index > 0)
+	{
 		temp = temp->next;
 		if (temp == NULL)
 			return NULL;
@@ -150,7 +181,9 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
-int insertNode(LinkedList *ll, int index, int value){
+// ll : 작업할 연결리스트, index : 몇번째 위치에 넣을지, value : 넣을 값
+int insertNode(LinkedList *ll, int index, int value)
+{
 
 	ListNode *pre, *cur;
 
@@ -158,7 +191,8 @@ int insertNode(LinkedList *ll, int index, int value){
 		return -1;
 
 	// If empty list or inserting first node, need to update head pointer
-	if (ll->head == NULL || index == 0){
+	if (ll->head == NULL || index == 0)
+	{
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
 		ll->head->item = value;
@@ -167,10 +201,10 @@ int insertNode(LinkedList *ll, int index, int value){
 		return 0;
 	}
 
-
 	// Find the nodes before and at the target position
 	// Create a new node and reconnect the links
-	if ((pre = findNode(ll, index - 1)) != NULL){
+	if ((pre = findNode(ll, index - 1)) != NULL) // 노드의 주소가 있으면
+	{
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
 		pre->next->item = value;
@@ -182,8 +216,8 @@ int insertNode(LinkedList *ll, int index, int value){
 	return -1;
 }
 
-
-int removeNode(LinkedList *ll, int index){
+int removeNode(LinkedList *ll, int index)
+{
 
 	ListNode *pre, *cur;
 
@@ -192,7 +226,8 @@ int removeNode(LinkedList *ll, int index){
 		return -1;
 
 	// If removing first node, need to update head pointer
-	if (index == 0){
+	if (index == 0)
+	{
 		cur = ll->head->next;
 		free(ll->head);
 		ll->head = cur;
@@ -203,7 +238,8 @@ int removeNode(LinkedList *ll, int index){
 
 	// Find the nodes before and after the target position
 	// Free the target node and reconnect the links
-	if ((pre = findNode(ll, index - 1)) != NULL){
+	if ((pre = findNode(ll, index - 1)) != NULL)
+	{
 
 		if (pre->next == NULL)
 			return -1;

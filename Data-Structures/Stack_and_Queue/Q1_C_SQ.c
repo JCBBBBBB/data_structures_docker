@@ -57,7 +57,6 @@ int main()
 	c = 1;
 
 	// Initialize the linked list as an empty linked list
-	ll.head = NULL;
 	ll.size = 0;
 
 	// Initialize the Queue as an empty queue

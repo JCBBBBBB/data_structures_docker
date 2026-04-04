@@ -100,10 +100,30 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 두번째 연결리스트의 노드들을 첫번째 연결리스트 사이사이에
+// 하나씩 끼워 넣는 함수
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+	ListNode *cur1, *cur2;
+	ListNode *next1, *next2;
+
+	cur1 = ll1->head;
+	cur2 = ll2->head;
+
+	while(cur1 && cur2)
+	{
+		next1 = cur1->next;
+		next2 = cur2->next;
+
+		cur1->next = cur2;
+		cur2->next = next1;
+
+		cur1 = next1;
+		cur2 = next2;
+		ll1->size++;
+	}
+
+	ll2->head = cur2;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
