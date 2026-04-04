@@ -38,7 +38,7 @@ int removeNode(LinkedList *ll, int index);
 
 int main()
 {
-	int c, i;
+	int c = 1, i;
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
 
@@ -100,9 +100,43 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 단일 연결 리스트를 두개의 부분 리스트로 나누는 C 함수를 작성하시오
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	int num;
+
+	if(ll->size % 2 == 0) //짝수이면
+	{
+		num = (ll->size) / 2 - 1; // num을 2로 나누고 1빼준다
+	}
+	else // 홀수이면
+	{
+		num = (ll->size) / 2; // num에서 그냥 2 나눠준다
+	}
+
+	int frontIndex = 0;
+	int backIndex = 0;
+
+	ListNode* cur = ll->head;
+
+	while(cur)
+	{
+		if(frontIndex <= num)
+		{
+			insertNode(resultFrontList, frontIndex, cur->item);
+			frontIndex++;
+		}
+
+		else
+		{
+			insertNode(resultBackList, backIndex, cur->item);
+			backIndex++;
+		}
+
+		cur = cur->next;
+	}
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

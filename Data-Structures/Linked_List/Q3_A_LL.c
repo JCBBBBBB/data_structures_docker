@@ -150,9 +150,11 @@ void moveOddItemsToBack(LinkedList *ll)
 	
 	if(final == NULL)
 	{
+		//짝수 없으면 그냥 odd_list만 보세요
 		return;
 	}
 
+	// 짝수 있으면 even_list 뒤에 odd_list 연결
 	while(final->next)
 	{
 		final = final->next;
