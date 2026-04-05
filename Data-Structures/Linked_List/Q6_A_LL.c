@@ -85,12 +85,44 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////////////////
-
+// 정수로 이루어진 연결리스트를 최대 한번만 순회하면서
+// 가장 큰 값을 가진 노드를 찾아 리스트의 맨 앞으로 이동시키는 함수를 작성하시오
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
-}
+	if(ptrHead == NULL || *ptrHead == NULL)
+	{
+		return -1;
+	}
 
+	ListNode* cur = *ptrHead;
+	ListNode* prev = NULL;
+
+	ListNode* maxNode = *ptrHead;
+	ListNode* maxPrev = NULL;
+
+	while(cur)
+	{
+		if(cur->item > maxNode->item)
+		{
+			maxNode = cur;
+			maxPrev = prev;
+		}
+		prev = cur;
+		cur = cur->next;
+
+	}
+
+	if(maxPrev == NULL)
+	{
+		return 0;
+	}
+
+	maxPrev->next = maxNode->next;
+	maxNode->next = *ptrHead;
+	*ptrHead = maxNode;
+
+	return 0;
+}
 //////////////////////////////////////////////////////////////////////////////////
 
 void printList(LinkedList *ll){
