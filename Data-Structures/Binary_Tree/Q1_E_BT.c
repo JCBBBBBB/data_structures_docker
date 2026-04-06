@@ -10,21 +10,21 @@ Purpose: Implementing the required functions for Question 1 */
 #include <stdlib.h>
 
 //////////////////////////////////////////////////////////////////////////////////
-typedef struct _btnode{
-	int item;
-	struct _btnode *left;
-	struct _btnode *right;
+typedef struct _btnode{ // 이진트리의 노드
+	int item; //저장하는 값
+	struct _btnode *left; //왼쪽 자식
+	struct _btnode *right; //오른쪽 자식
 } BTNode;   // You should not change the definition of BTNode
 
 /////////////////////////////////////////////////////////////////////////////////
 
-typedef struct _stackNode{
-    BTNode *btnode;
+typedef struct _stackNode{ // 스택의 노드(BTNode의 포인터를 저장)
+    BTNode *btnode; // BTNode를 가리키는 포인터
     struct _stackNode *next;
 }StackNode;
 
 typedef struct _stack{
-    StackNode *top;
+    StackNode *top; // 스택의 top
 }Stack;
 
 ///////////////////////// function prototypes ////////////////////////////////////
@@ -32,14 +32,14 @@ typedef struct _stack{
 // You should not change the prototypes of these functions
 int identical(BTNode *tree1, BTNode *tree2);
 
-BTNode* createBTNode(int item);
+BTNode* createBTNode(int item); // 하나 동적할당 후 반환
 
-BTNode* createTree();
-void push( Stack *stk, BTNode *node);
+BTNode* createTree(); // 사용자 입력받아 트리 생성. 내부적으로 스택써서 BFS 방식으로 노드 추가
+void push( Stack *stk, BTNode *node); // BTNode 포인터를 스택에 넣고 빼기
 BTNode* pop(Stack *stk);
 
-void printTree(BTNode *node);
-void removeAll(BTNode **node);
+void printTree(BTNode *node); // 중위 순회로 출력
+void removeAll(BTNode **node);//재귀로 트리 전체 메모리 해제
 
 ///////////////////////////// main() /////////////////////////////////////////////
 

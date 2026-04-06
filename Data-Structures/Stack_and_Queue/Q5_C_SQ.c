@@ -109,7 +109,14 @@ int main()
 
 void recursiveReverse(Queue *q)
 {
-/* add your code here */
+	if(isEmptyQueue(q)) // 큐 비면 return
+	{
+		return;
+	}
+
+	int front = dequeue(q); // front 변수에 dequeue한 값 저장
+	recursiveReverse(q); // 재귀 돌린다
+	enqueue(q, front); // 돌아와서 q에 front enqueue한다
 }
 
 //////////////////////////////////////////////////////////////////

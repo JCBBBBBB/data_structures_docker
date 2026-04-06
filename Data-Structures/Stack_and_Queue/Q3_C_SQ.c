@@ -100,10 +100,51 @@ int main()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
+//스택의 숫자들이 쌍으로 연속적인지 확인하는 함수를 작성하라
+//push()와 pop()만 사용
 
+// 두 개씩 묶었을때 차이가 1인 경우
+
+//사이즈 홀수 개이면 0반환
+//사이즈 짝수 개여야 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+  int size = s->ll.size;
+
+  if(size % 2 == 1)
+  {
+	return 0;
+  }
+
+  int num = 0;
+
+  if(!isEmptyStack(s))
+  {
+	num = pop(s);
+  }
+
+  while(!isEmptyStack(s)) // 스택이 비지 않았을 때
+  {
+	int popNum = pop(s);
+	if(abs(num - popNum) == 1) // 절댓값이 1차이 나면
+	{
+		if(!isEmptyStack(s))
+		{
+			num = pop(s);
+		}
+		else
+		{
+			break;
+		}
+		continue;
+	}
+	else  // 연속된 수가 아니라면
+	{
+		return 0;
+	}
+	// num = pop(s);
+  }
+  return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

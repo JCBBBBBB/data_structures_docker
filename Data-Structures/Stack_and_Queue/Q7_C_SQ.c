@@ -97,14 +97,62 @@ int main()
 		}
 
 	}
-
 	return 0;
-}
 
+}
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	Stack s;
+	s.ll.head = NULL;
+	s.ll.size = 0;
+
+	for(int i =0; expression[i] != '\0'; i++)
+	{
+		if(expression[i] == '(' || expression[i] == '{' || expression[i] == '[')
+		{
+			push(&s, expression[i]);
+		}
+		
+		else if(expression[i] == ')')
+		{
+			if(isEmptyStack(&s) || peek(&s) != '(')
+			{
+				return 1;
+			}
+
+			pop(&s);
+		}
+		else if(expression[i] == '}')
+		{
+			if(isEmptyStack(&s) || peek(&s) != '{')
+			{
+				return 1;
+			}
+
+			pop(&s);
+		}
+		else if(expression[i] == ']')
+		{
+			if(isEmptyStack(&s) || peek(&s) != '[')
+			{
+				return 1;
+			}
+
+			pop(&s);
+		}
+	}
+
+	if(isEmptyStack(&s))
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+
+
 }
 
 ////////////////////////////////////////////////////////////

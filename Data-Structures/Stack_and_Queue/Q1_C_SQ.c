@@ -112,15 +112,45 @@ int main()
 
 
 //////////////////////////////////////////////////////////////////////////////////
+// 연결 리스트에 저장된 모든 정수를 이용해서
+// 큐(연결 리스트 기반) 를 생성하는 C 함수를 작성하라.
 
+// 첫 번째 노드부터 순서대로 enqueue 한다
+// 두 번째, 세 번째… 순서 유지
+// 큐가 비어있지 않으면 먼저 비워라
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
 	/* add your code here */
+	ListNode* cur = ll->head;
+
+	while(cur)
+	{
+		enqueue(q, cur->item);
+		cur = cur->next;
+	}
+
+
 }
 
+//큐에서 홀수 지워라
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
+	int size = q->ll.size;
+
+	for(int i = 0; i < size; i++)
+	{
+		int num = dequeue(q);
+
+		if(num == -1)
+		{
+			return;
+		}
+
+		if(num % 2 == 0) //짝수이면
+		{
+			enqueue(q, num);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
