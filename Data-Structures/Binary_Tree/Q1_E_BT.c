@@ -23,7 +23,7 @@ typedef struct _stackNode{ // 스택의 노드(BTNode의 포인터를 저장)
     struct _stackNode *next;
 }StackNode;
 
-typedef struct _stack{
+typedef struct _stack{ // 스택 구조체
     StackNode *top; // 스택의 top
 }Stack;
 
@@ -32,11 +32,13 @@ typedef struct _stack{
 // You should not change the prototypes of these functions
 int identical(BTNode *tree1, BTNode *tree2);
 
+// 정수 item을 가진 새 트리 노드 하나를 만들고 주소를 반환하는 함수
 BTNode* createBTNode(int item); // 하나 동적할당 후 반환
 
+
 BTNode* createTree(); // 사용자 입력받아 트리 생성. 내부적으로 스택써서 BFS 방식으로 노드 추가
-void push( Stack *stk, BTNode *node); // BTNode 포인터를 스택에 넣고 빼기
-BTNode* pop(Stack *stk);
+void push( Stack *stk, BTNode *node); // 스택에 트리 노드 주소를 넣는 함수
+BTNode* pop(Stack *stk); // 스택에서 하나 꺼내는 함수
 
 void printTree(BTNode *node); // 중위 순회로 출력
 void removeAll(BTNode **node);//재귀로 트리 전체 메모리 해제
@@ -67,11 +69,11 @@ int main()
             switch(c)
             {
             case 1:
-                removeAll(&root1);
+                removeAll(&root1); //기존 tree1이 있으면 전부 해제
                 printf("Creating tree1:\n");
-                root1 = createTree();
+                root1 = createTree();//새 트리 만들고 루트 주소 root1에 저장
                 printf("The resulting tree1 is: ");
-                printTree(root1);
+                printTree(root1); // 중위 순회로 tree1 출력
                 printf("\n");
                 break;
             case 2:
@@ -83,8 +85,8 @@ int main()
                 printf("\n");
                 break;
             case 3:
-                s = identical(root1, root2);
-                if(s){
+                s = identical(root1, root2);// 두 트리 비교하고 결과를 s에 저장
+                if(s){ // s가 0이 아니면 참
                 printf("Both trees are structurally identical.\n");
                 }
                 else{
@@ -114,14 +116,26 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int identical(BTNode *tree1, BTNode *tree2)
-
 {
-   /* add your code here */
+    if(tree1 == NULL && tree2 == NULL)
+    {
+        return 1;
+    }
+    if(tree1 == NULL || tree2 == NULL)
+    {
+        return 0;
+    }
+    if(tree1->item != tree2->item)
+    {
+        return 0;
+    }
+
+    return identical(tree1->left, tree2->left) && identical(tree1->right, tree2->right);
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 
-BTNode *createBTNode(int item){
+BTNode *createBTNode(int item){ // 새 트리 노드 하나를 생성하는 함수 시작
     BTNode *newNode = malloc(sizeof(BTNode));
     newNode->item = item;
     newNode->left = NULL;
@@ -132,7 +146,7 @@ BTNode *createBTNode(int item){
 //////////////////////////////////////////////////////////////////////////////////
 
 
-BTNode *createTree()
+BTNode *createTree() // 사용자 입력으로 트리를 만드는 함수
 {
     Stack stk;
     BTNode *root, *temp;
@@ -146,7 +160,7 @@ BTNode *createTree()
     printf("Enter an integer value for the root: ");
     if(scanf("%d",&item) > 0)
     {
-        root = createBTNode(item);
+        root = createBTNode(item); // 루트 노드 생성
         push(&stk,root);
     }
     else
@@ -154,7 +168,7 @@ BTNode *createTree()
         scanf("%c",&s);
     }
 
-    while((temp =pop(&stk)) != NULL)
+    while((temp =pop(&stk)) != NULL) // 스택에서 하나 꺼내서 temp에 저장
     {
 
         printf("Enter an integer value for the Left child of %d: ", temp->item);
@@ -186,7 +200,7 @@ BTNode *createTree()
     return root;
 }
 
-void push( Stack *stk, BTNode *node){
+void push( Stack *stk, BTNode *node){ // 스택에 BTNode*를 넣는 함수
     StackNode *temp;
 
     temp = malloc(sizeof(StackNode));
@@ -203,7 +217,7 @@ void push( Stack *stk, BTNode *node){
     }
 }
 
-BTNode* pop(Stack *stk){
+BTNode* pop(Stack *stk){ // 스택에서 하나 꺼내는 함수
    StackNode *temp, *top;
    BTNode *ptr;
    ptr = NULL;

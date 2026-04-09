@@ -105,7 +105,21 @@ int main()
 
 void mirrorTree(BTNode *node)
 {
-	/* add your code here */
+	//노드의 왼쪽 오른쪽을 바꿔야함
+    if(node == NULL)
+    {
+        return;
+    }
+
+    mirrorTree(node->left);
+    mirrorTree(node->right);
+
+    if(node->left || node->right)
+    {
+        BTNode* tempNode = node->left;
+        node->left = node->right;
+        node->right = tempNode;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////

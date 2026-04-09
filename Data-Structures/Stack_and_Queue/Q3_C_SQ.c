@@ -105,8 +105,8 @@ int main()
 
 // 두 개씩 묶었을때 차이가 1인 경우
 
-//사이즈 홀수 개이면 0반환
-//사이즈 짝수 개여야 
+//사이즈 홀수개 이면 0반환
+//사이즈 짝수개 여야 
 int isStackPairwiseConsecutive(Stack *s)
 {
   int size = s->ll.size;

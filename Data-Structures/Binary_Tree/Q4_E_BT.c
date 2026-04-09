@@ -99,11 +99,23 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// 이진 트리의 루트 노드 포인터를 받아서, 트리 안의 모든 홀수의 합을 반환하는 재귀 C 함수를 작성하시오.
 int sumOfOddNodes(BTNode *node)
-
 {
-    /* add your code here */
+    //순회하면서 저장
+    if(node == NULL)
+    {
+        return 0;
+    }
+
+    if(node->item % 2 == 1)
+    {
+        return sumOfOddNodes(node->left) + sumOfOddNodes(node->right) + node->item;
+    }
+    else
+    {
+        return sumOfOddNodes(node->left) + sumOfOddNodes(node->right);
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////

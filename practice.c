@@ -4,7 +4,8 @@
 
 int main()
 {
-    FILE* fp;
+    printf("%c", 'a');
+    // FILE* fp;
 
     //파일에서 읽기
     // fp = fopen("test.txt", "r");
@@ -42,16 +43,16 @@ int main()
 
 
     //파일에 이어쓰기 -> 'a'는 기존 내용 안지운다, 파일 끝에 추가한다
-    fp = fopen("test.txt", "a");
+    // fp = fopen("test.txt", "a");
 
-    if(fp == NULL)
-    {
-        printf("파일 열기 실패!\n");
-        return 1;
-    }
+    // if(fp == NULL)
+    // {
+    //     printf("파일 열기 실패!\n");
+    //     return 1;
+    // }
 
-    fprintf(fp, "추가된 내용\n");
+    // fprintf(fp, "추가된 내용\n");
 
-    fclose(fp);
-    return 0;
+    // fclose(fp);
+    // return 0;
 }

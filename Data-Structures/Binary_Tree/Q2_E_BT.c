@@ -66,7 +66,7 @@ int main()
                 removeAll(&root);
                 root = createTree();
                 printf("The resulting binary tree is: ");
-                printTree(root);
+999999999999999999999999                printTree(root);
                 printf("\n");
                 break;
             case 2:
@@ -97,7 +97,22 @@ int main()
 int maxHeight(BTNode *node)
 
 {
-    /* add your code here */
+    if(node == NULL)
+    {
+        return -1;
+    }
+
+    int leftHeight = maxHeight(node->left);
+    int rightHeight = maxHeight(node->right);
+
+    if(leftHeight > rightHeight)
+    {
+        return leftHeight + 1;
+    }
+    else
+    {
+        return rightHeight + 1;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

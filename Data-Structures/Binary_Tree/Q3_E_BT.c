@@ -97,11 +97,23 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
-int countOneChildNodes(BTNode *node)
+//이진 트리의 루트 노드를 가리키는 포인터를 받아,
+//자식 노드를 정확히 1개만 가진 노드의 개수를 반환하는 c함수를 작성하시오
+//너무어려워서 답봤다
+int countOneChildNodes(BTNode *nsode)
 
 {
-    /* add your code here */
+    if(node == NULL)
+    {
+        return 0;
+    }
+
+    int leftNum = countOneChildNodes(node->left);
+    int rightNum = countOneChildNodes(node->right);
+
+    int current = (node->left != NULL) != (node->right != NULL) ? 1 : 0;
+
+    return leftNum + rightNum + current;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
